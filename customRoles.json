@@ -1,0 +1,480 @@
+{
+    "sections": [
+        {
+            "title": "Political Identity",
+            "sectionId": "646345090117140490",
+            "roles": [
+                {
+                    "name": "left wing",
+                    "id": "640269389437861909",
+                    "emoji": "📕"
+                },
+                {
+                    "name": "centrist",
+                    "id": "640269389974994993",
+                    "emoji": "😶"
+                },
+                {
+                    "name": "right wing",
+                    "id": "640269390817918979",
+                    "emoji": "📙"
+                },
+                {
+                    "name": "alt-right",
+                    "id": "640269391677620255",
+                    "emoji": "📓"
+                }
+            ]
+        },
+        {
+            "title": "Pronouns",
+            "sectionId": "646345090117140490",
+            "roles": [
+                {
+                    "name": "He/Him/His",
+                    "id": "640268946418958347",
+                    "emoji": "💙"
+                },
+                {
+                    "name": "She/Her/Hers",
+                    "id": "640268947001966592",
+                    "emoji": "💜"
+                },
+                {
+                    "name": "They/Them/Theirs",
+                    "id": "640269092766351360",
+                    "emoji": "💛"
+                }
+            ]
+        },
+        {
+            "title": "Religion",
+            "sectionId": "646345090117140490",
+            "roles": [
+                {
+                    "name": "Islam",
+                    "id": "640296434821758977",
+                    "emoji": "☪"
+                },
+                {
+                    "name": "Christianity",
+                    "id": "640296436289896488",
+                    "emoji": "✝"
+                },
+                {
+                    "name": "Judiasm",
+                    "id": "640296437137276939",
+                    "emoji": "✡"
+                },
+                {
+                    "name": "Buddhism",
+                    "id": "640296438894428191",
+                    "emoji": "☸"
+                },
+                {
+                    "name": "Hinduism",
+                    "id": "640296440459165750",
+                    "emoji": "🕉"
+                },
+                {
+                    "name": "Paganism",
+                    "id": "640296440790384655",
+                    "emoji": "🕯"
+                },
+                {
+                    "name": "Spiritualism",
+                    "id": "640296442958970885",
+                    "emoji": "✨"
+                },
+                {
+                    "name": "Atheism",
+                    "id": "640296443772403712",
+                    "emoji": "⚛"
+                },
+                {
+                    "name": "Agnosticism",
+                    "id": "640296445320233010",
+                    "emoji": "❓"
+                },
+                {
+                    "name": "Mysticism",
+                    "id": "646065462274293763",
+                    "emoji": "👻"
+                }
+            ]
+        },
+        {
+            "title": "Sexual Orientation",
+            "sectionId": "646345090117140490",
+            "roles": [
+                {
+                    "name": "Bisexual 💞",
+                    "id": "646067042570469406",
+                    "emoji": "💞"
+                },
+                {
+                    "name": "Pansexual 🍯",
+                    "id": "646067043862315058",
+                    "emoji": "🍯"
+                },
+                {
+                    "name": "Homosexual 👨‍❤️‍💋‍👨",
+                    "id": "646067044298522635",
+                    "emoji": "👨‍❤️‍💋‍👨"
+                },
+                {
+                    "name": "Heterosexual 👩‍❤️‍💋‍👨",
+                    "id": "646067044906958848",
+                    "emoji": "👩‍❤️‍💋‍👨"
+                },
+                {
+                    "name": "Demisexual 😋",
+                    "id": "646067048492826681",
+                    "emoji": "😋"
+                },
+                {
+                    "name": "Sapiosexual 🧠",
+                    "id": "646067206211371038",
+                    "emoji": "🧠"
+                }
+            ]
+        },
+        {
+            "title": "Systems of Government",
+            "sectionId": "646349811318259713",
+            "roles": [
+                {
+                    "name": "Unitary",
+                    "id": "638549799393820712",
+                    "emoji": "🔊",
+                    "emojiName": "loud_sound"
+                },
+                {
+                    "name": "Federal",
+                    "id": "640115073964310533",
+                    "emoji": "🔉",
+                    "emojiName": "speaker"
+                },
+                {
+                    "name": "Confederal ",
+                    "id": "640115317741453313",
+                    "emoji": "🔈",
+                    "emojiName": "sound"
+                }
+            ]
+        },
+        {
+            "title": "Military Forgien Policy",
+            "sectionId": "646349811318259713",
+            "roles": [
+                {
+                    "name": "Interventionism",
+                    "id": "640115318684909568",
+                    "emoji": "⚔",
+                    "emojiName": "loud_sound"
+                },
+                {
+                    "name": "Non-Interventionism",
+                    "id": "640115319523770378",
+                    "emoji": "🛡",
+                    "emojiName": "loud_sound"
+                },
+                {
+                    "name": "Pacifism",
+                    "id": "640115320316624896",
+                    "emoji": "🕊",
+                    "emojiName": "loud_sound"
+                }
+            ]
+        },
+        {
+            "title": "Forgien Affairs",
+            "sectionId": "646349811318259713",
+            "roles": [
+                {
+                    "name": "Globalism",
+                    "id": "640115321189040128",
+                    "emoji": "🌎"
+                },
+                {
+                    "name": "Neutral Foreign Affairs",
+                    "id": "640115321683968011",
+                    "emoji": "⚖"
+                },
+                {
+                    "name": "Civic Nationalism 👨‍🏫",
+                    "id": "640115322728349706",
+                    "emoji": "👨‍🏫"
+                },
+                {
+                    "name": "Cultural Nationalism 💅",
+                    "id": "",
+                    "emoji": "💅"
+                },
+                {
+                    "name": "Ethnic Nationalism ⛑️",
+                    "id": "",
+                    "emoji": "⛑️"
+                }
+            ]
+        },
+        {
+            "title": "Democracy Axis",
+            "sectionId": "646349811318259713",
+            "roles": [
+                {
+                    "name": "Democracy",
+                    "id": "640115323525136384",
+                    "emoji": "🗳"
+                },
+                {
+                    "name": "Oligarchy",
+                    "id": "640115324385230848",
+                    "emoji": "🍷"
+                },
+                {
+                    "name": "Autocracy",
+                    "id": "640115324980690948",
+                    "emoji": "👮"
+                }
+            ]
+        },
+        {
+            "title": "Planning vs Market Axis",
+            "sectionId": "646349811318259713",
+            "roles": [
+                {
+                    "name": "Free Market",
+                    "id": "640115325706436619",
+                    "emoji": "🗑"
+                },
+                {
+                    "name": "Right Mixed Market",
+                    "id": "640115326838767621",
+                    "emoji": "📉"
+                },
+                {
+                    "name": "Left Mixed Market",
+                    "id": "640115327585353748",
+                    "emoji": "📈"
+                },
+                {
+                    "name": "Planned Economy",
+                    "id": "640115328457637888",
+                    "emoji": "😇"
+                }
+            ]
+        },
+        {
+            "title": "Economy Axis",
+            "sectionId": "646349811318259713",
+            "roles": [
+                {
+                    "name": "Public MoP",
+                    "id": "640115329367801876",
+                    "emoji": "⏭"
+                },
+                {
+                    "name": "Private MoP",
+                    "id": "640115329829175348",
+                    "emoji": "⏪"
+                },
+                {
+                    "name": "Mostly Public MoP",
+                    "id": "640115331712417802",
+                    "emoji": "⏩"
+                },
+                {
+                    "name": "Mostly Private MoP",
+                    "id": "640115332312334337",
+                    "emoji": "⏹"
+                }
+            ]
+        },
+        {
+            "title": "Social Axis",
+            "sectionId": "646349811318259713",
+            "roles": [
+                {
+                    "name": "Pro-LGBT",
+                    "id": "640268722170363916",
+                    "emoji": "🏳️‍🌈"
+                },
+                {
+                    "name": "Pro-LGB Only",
+                    "id": "640268726326919229",
+                    "emoji": "👹"
+                },
+                {
+                    "name": "AntiRacism",
+                    "id": "640268727434346520",
+                    "emoji": "😇"
+                },
+                {
+                    "name": "Antifascism",
+                    "id": "640268727987863567",
+                    "emoji": "😘"
+                },
+                {
+                    "name": "Fascism",
+                    "id": "640268728960942080",
+                    "emoji": "🏺"
+                },
+                {
+                    "name": "Racialism",
+                    "id": "640268729577373772",
+                    "emoji": "🛑"
+                },
+                {
+                    "name": "Feminism",
+                    "id": "640268730399719444",
+                    "emoji": "🎓"
+                },
+                {
+                    "name": "Antifeminism",
+                    "id": "640268944959078404",
+                    "emoji": "🦀"
+                },
+                {
+                    "name": "Family Values",
+                    "id": "640268945940807730",
+                    "emoji": "👪"
+                },
+                {
+                    "name": "Pro Trans Only 🇹",
+                    "id": "641329711405989889",
+                    "emoji": "🇹"
+                },
+                {
+                    "name": "Vegan 🥕",
+                    "id": "641329712735453205",
+                    "emoji": "🥕"
+                },
+                {
+                    "name": "Omnivore 💀",
+                    "id": "641329714065309726",
+                    "emoji": "💀"
+                }
+            ]
+        },
+        {
+            "title": "Meta-Ethics",
+            "sectionId": "646350449296801792",
+            "roles": [
+                {
+                    "name": "Moral Nihilism",
+                    "id": "640269093420662785",
+                    "emoji": "💔"
+                },
+                {
+                    "name": "Moral Error Theory",
+                    "id": "640269094234488872",
+                    "emoji": "❌"
+                },
+                {
+                    "name": "Moral Relativism",
+                    "id": "640269094641336330",
+                    "emoji": "🌈"
+                },
+                {
+                    "name": "Robust Moral Realism",
+                    "id": "640269095190921248",
+                    "emoji": "🔮"
+                }
+            ]
+        },
+        {
+            "title": "Normative Ethics",
+            "sectionId": "646350449296801792",
+            "roles": [
+                {
+                    "name": "Utilitarianism",
+                    "id": "640269095937507393",
+                    "emoji": "🍞"
+                },
+                {
+                    "name": "Consequentialism",
+                    "id": "640269096935489596",
+                    "emoji": "⏰"
+                },
+                {
+                    "name": "Deontology",
+                    "id": "640269097082421250",
+                    "emoji": "📜"
+                },
+                {
+                    "name": "Virtue Ethics",
+                    "id": "640269387466670103",
+                    "emoji": "📿"
+                },
+                {
+                    "name": "Theological Ethics",
+                    "id": "640269388041289751",
+                    "emoji": "🛐"
+                },
+                {
+                    "name": "Natural Rights",
+                    "id": "640269389031276564",
+                    "emoji": "🍃"
+                }
+            ]
+        },
+        {
+            "title": "Games",
+            "sectionId": "644265647836233738",
+            "roles": [
+                {
+                    "name": "Io Games 🌕",
+                    "id": "644265757663821844",
+                    "emoji": "🌕"
+                },
+                {
+                    "name": "Town Of Salem 🏘️",
+                    "id": "644265758875975690",
+                    "emoji": "🏘️"
+                },
+                {
+                    "name": "Secret Hitler 👥",
+                    "id": "644265760356565013",
+                    "emoji": "👥"
+                },
+                {
+                    "name": "Planetary Annihilation 💥",
+                    "id": "644265759392137226",
+                    "emoji": "💥"
+                },
+                {
+                    "name": "Offworld Trading Company 💸",
+                    "id": "644265760721469462",
+                    "emoji": "💸"
+                },
+                {
+                    "name": "Stellaris 🌌",
+                    "id": "644265758205149214",
+                    "emoji": "🌌"
+                },
+                {
+                    "name": "Minecraft 🌄",
+                    "id": "644266030276804627",
+                    "emoji": "🌄"
+                }
+            ]
+        },
+        {
+            "title": "Watching",
+            "sectionId": "643632564812251177",
+            "roles": [
+                {
+                    "name": "Movies 🎬",
+                    "id": "644611907512172549",
+                    "emoji": "🎬"
+                },
+                {
+                    "name": "Anime ⛩️",
+                    "id": "644611908233723905",
+                    "emoji": "⛩️"
+                }
+            ]
+        }
+    ]
+}
