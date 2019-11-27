@@ -110,7 +110,7 @@ function HandleRawEvent(message, packet) {
     if (reaction)
         reaction.users.set(packet.d.user_id, user);
     if (!reaction)
-        return console.log("reaction undefined");
+        return;
     if (packet.t === 'MESSAGE_REACTION_REMOVE') {
         sync_roles_1.OnReactionRemove(reaction, user);
     }
@@ -216,7 +216,10 @@ client.on("message", function (message) {
         }
     }
     if (!command)
-        return style_1.QuickEmbed(message, "command " + style_1.wrap(commandName || "") + " not found");
+        return message.author.send("command " + style_1.wrap(commandName || "") + " not found");
+    //Exit out if command is disabled
+    if (command.disabled)
+        return;
     if (!commandUtil_1.HasPerms(message.member, command.name))
         return;
     if (command.args && args.length === 0) {

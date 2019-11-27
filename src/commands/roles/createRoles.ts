@@ -8,6 +8,8 @@ export const command: ICommand = {
     description: "Create roles, DONT USE THIS COMMAND",
     perms: ["admin"],
     aliases: ["cr"],
+    hidden: true,
+    disabled: true,
 
     async execute(message, args) {
         const guild = message.client.guilds.get(guild_id)

@@ -43,6 +43,8 @@ exports.command = {
     description: "Create roles, DONT USE THIS COMMAND",
     perms: ["admin"],
     aliases: ["cr"],
+    hidden: true,
+    disabled: true,
     execute: function (message, args) {
         return __awaiter(this, void 0, void 0, function () {
             var guild, rolesChannel, games, roles, titleEmbed, embed, i, role, msg, i, role;

@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var discord_js_1 = require("discord.js");
 var ms_1 = __importDefault(require("ms"));
 var config_1 = require("../config");
-var chalk_1 = __importDefault(require("chalk"));
 var disboardId = "302050872383242240";
 var timer;
 var bumpChannelId = "635469422869348392";
@@ -31,7 +30,7 @@ function SetReminder(message, time) {
     if (timer) {
         clearTimeout(timer);
     }
-    console.log(chalk_1.default.bgBlue.bold("Set bump reminder for " + time));
+    // console.log(chalk.bgBlue.bold(`Set bump reminder for ${time}`))
     timer = setTimeout(function () {
         var guild = message.client.guilds.get(config_1.guild_id);
         if (guild) {

@@ -70,6 +70,8 @@ function syncRoles(client) {
 }
 exports.syncRoles = syncRoles;
 function OnReactionRemove(reaction, user) {
+    if (reaction.message.channel.id !== "628565019508080660")
+        return;
     var guild = reaction.message.guild;
     var channel = guild.channels.get("628565019508080660");
     if (!channel)

@@ -72,7 +72,7 @@ function HandleRawEvent(message: Message, packet: any) {
 
     // Adds the currently reacting user to the reaction's users collection.
     if (reaction) reaction.users.set(packet.d.user_id, user);
-    if (!reaction) return console.log(`reaction undefined`)
+    if (!reaction) return
 
     if (packet.t === 'MESSAGE_REACTION_REMOVE') {
         OnReactionRemove(reaction, user)
@@ -195,7 +195,10 @@ client.on("message", message => {
         }
     }
 
-    if (!command) return QuickEmbed(message, `command ${wrap(commandName || "")} not found`)
+    if (!command) return message.author.send(`command ${wrap(commandName || "")} not found`)
+
+    //Exit out if command is disabled
+    if (command.disabled) return
 
     if (!HasPerms(message.member, command.name)) return
 

@@ -24,7 +24,7 @@ function displayAll(message) {
     //reference this later to check for ungrouped commands
     commandUtil_1.commandGroups.map(function (grp) {
         grp.map(function (cmd) {
-            if (commandUtil_1.HasPerms(message.member, cmd.name))
+            if (commandUtil_1.HasPerms(message.member, cmd.name) && !cmd.hidden)
                 grouped.push(cmd);
         });
     });
@@ -36,7 +36,7 @@ function displayAll(message) {
     var ungrouped = commandUtil_1.commandGroups.get("ungrouped");
     if (ungrouped) {
         ungrouped.map(function (cmd) {
-            if (commandUtil_1.HasPerms(message.member, cmd.name))
+            if (commandUtil_1.HasPerms(message.member, cmd.name) && !cmd.hidden)
                 embed.addField(cmd.name, cmd.description);
         });
     }

@@ -104,7 +104,6 @@ export function HasPerms(member: GuildMember, query: string) {
     const commandPerms: Array<{ name: string, roleId: string }> = []
 
     if (command && command.perms) {
-
         command.perms.map(permName => {
             const perm = perms.find(p => p.name === permName.toLowerCase())
             if (perm) {
@@ -129,7 +128,6 @@ export function HasPerms(member: GuildMember, query: string) {
 
     for (let i = 0; i < commandPerms.length; i++) {
         const perm = commandPerms[i]
-
         if (member.roles.has(perm.roleId)) {
             hasPerm = true;
             break;

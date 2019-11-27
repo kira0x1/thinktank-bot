@@ -30,7 +30,7 @@ function SetReminder(message: Message, time: string) {
         clearTimeout(timer)
     }
 
-    console.log(chalk.bgBlue.bold(`Set bump reminder for ${time}`))
+    // console.log(chalk.bgBlue.bold(`Set bump reminder for ${time}`))
 
     timer = setTimeout(() => {
         const guild = message.client.guilds.get(guild_id)

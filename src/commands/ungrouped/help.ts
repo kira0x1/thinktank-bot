@@ -26,7 +26,7 @@ function displayAll(message: Message) {
     //reference this later to check for ungrouped commands
     commandGroups.map(grp => {
         grp.map(cmd => {
-            if (HasPerms(message.member, cmd.name))
+            if (HasPerms(message.member, cmd.name) && !cmd.hidden)
                 grouped.push(cmd)
         })
     })
@@ -40,7 +40,7 @@ function displayAll(message: Message) {
     const ungrouped = commandGroups.get("ungrouped")
     if (ungrouped) {
         ungrouped.map(cmd => {
-            if (HasPerms(message.member, cmd.name))
+            if (HasPerms(message.member, cmd.name) && !cmd.hidden)
                 embed.addField(cmd.name, cmd.description)
         })
     }

@@ -26,11 +26,14 @@ export async function syncRoles(client: Client) {
 }
 
 export function OnReactionRemove(reaction: MessageReaction, user: User) {
+    if (reaction.message.channel.id !== "628565019508080660") return
+
     const guild = reaction.message.guild
     const channel = guild.channels.get("628565019508080660")
 
     if (!channel) return
     if (!((channel): channel is TextChannel => channel.type === "text")(channel)) return console.log("Couldnt find channel")
+
 
     if (customRoles.sections.map(section => section.roles.find(role => role.emoji === reaction.emoji.toString())) === false) return
     if (user.bot) return

@@ -7,6 +7,7 @@ export interface ICommand {
     usage?: string
     args?: boolean
     hidden?: boolean
+    disabled?: boolean
     perms?: string[]
     isSubCommand?: boolean
 
