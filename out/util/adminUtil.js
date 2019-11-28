@@ -52,11 +52,13 @@ function getRole(message, roleName) {
 exports.getRole = getRole;
 function adminEmbed(message, member, title, reason) {
     return __awaiter(this, void 0, void 0, function () {
-        var embed;
+        var author, embed;
         return __generator(this, function (_a) {
+            author = message.author;
             embed = new discord_js_1.RichEmbed()
                 .setColor(style_1.embedColor)
                 .setTitle(title)
+                .setAuthor(author.username, author.avatarURL)
                 .addField("User", member.user.tag + "\n" + "`" + member.id + "`")
                 .addField("Reason", reason || 'none')
                 .setThumbnail(member.user.avatarURL);
