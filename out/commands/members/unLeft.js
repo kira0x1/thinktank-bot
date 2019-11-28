@@ -77,14 +77,14 @@ exports.command = {
                                 member.removeRole(role);
                                 embed = new discord_js_1.RichEmbed()
                                     .setColor(style_1.embedColor)
-                                    .setAuthor(message.author.username, message.author.tag)
-                                    .addField('Intruder alert!', '```yaml\n' + member.displayName + ' is has defected from the left!\n```');
+                                    .setAuthor(message.author.username, message.author.avatarURL)
+                                    .addField('Intruder alert!', '```yaml\n' + member.displayName + ' has defected from the left!\n```');
                                 message.channel.send(embed);
                             }
                             else {
                                 embed = new discord_js_1.RichEmbed()
                                     .setTitle(member.displayName + " is already not a leftist")
-                                    .setAuthor(message.author.username, message.author.tag)
+                                    .setAuthor(message.author.username, message.author.avatarURL)
                                     .setColor(style_1.embedColor);
                                 message.channel.send(embed);
                             }

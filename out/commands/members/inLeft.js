@@ -76,7 +76,7 @@ exports.command = {
                             if (member.roles.get(role.id)) {
                                 embed = new discord_js_1.RichEmbed()
                                     .setColor(style_1.embedColor)
-                                    .setAuthor(message.author.username, message.author.tag)
+                                    .setAuthor(message.author.username, message.author.avatarURL)
                                     .setTitle(member.displayName + " is already a leftist");
                                 message.channel.send(embed);
                             }
@@ -84,7 +84,7 @@ exports.command = {
                                 member.addRole(role);
                                 embed = new discord_js_1.RichEmbed()
                                     .setColor(style_1.embedColor)
-                                    .setAuthor(message.author.username, message.author.tag)
+                                    .setAuthor(message.author.username, message.author.avatarURL)
                                     .addField('Lefty Alert!', '```yaml\n' + member.displayName + ' is now a beta!\n```');
                                 message.channel.send(embed);
                             }

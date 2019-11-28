@@ -26,7 +26,7 @@ export const command: ICommand = {
             if (member.roles.get(role.id)) {
                 const embed = new RichEmbed()
                     .setColor(embedColor)
-                    .setAuthor(message.author.username, message.author.tag)
+                    .setAuthor(message.author.username, message.author.avatarURL)
                     .setTitle(`${member.displayName} is already a leftist`)
 
                 message.channel.send(embed);
@@ -35,7 +35,7 @@ export const command: ICommand = {
 
                 const embed = new RichEmbed()
                     .setColor(embedColor)
-                    .setAuthor(message.author.username, message.author.tag)
+                    .setAuthor(message.author.username, message.author.avatarURL)
                     .addField('Lefty Alert!', '```yaml\n' + member.displayName + ' is now a beta!\n```');
 
                 message.channel.send(embed);

@@ -76,6 +76,7 @@ exports.command = {
                             member.removeRole(role);
                             embed = new discord_js_1.RichEmbed()
                                 .setColor(style_1.embedColor)
+                                .setAuthor(message.author.username, message.author.avatarURL)
                                 .addField('Removed Retreat Perms!', '```yaml\n' + member.displayName + ' can no longer enter the retreat!\n```');
                             //Send embed
                             message.channel.send(embed);

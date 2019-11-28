@@ -28,14 +28,14 @@ export const command: ICommand = {
 
                 const embed = new RichEmbed()
                     .setColor(embedColor)
-                    .setAuthor(message.author.username, message.author.tag)
-                    .addField('Intruder alert!', '```yaml\n' + member.displayName + ' is has defected from the left!\n```');
+                    .setAuthor(message.author.username, message.author.avatarURL)
+                    .addField('Intruder alert!', '```yaml\n' + member.displayName + ' has defected from the left!\n```');
 
                 message.channel.send(embed);
             } else {
                 const embed = new RichEmbed()
                     .setTitle(`${member.displayName} is already not a leftist`)
-                    .setAuthor(message.author.username, message.author.tag)
+                    .setAuthor(message.author.username, message.author.avatarURL)
                     .setColor(embedColor)
 
                 message.channel.send(embed)

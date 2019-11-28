@@ -28,6 +28,7 @@ export const command: ICommand = {
             //Create embed to tell user
             const embed = new RichEmbed()
                 .setColor(embedColor)
+                .setAuthor(message.author.username, message.author.avatarURL)
                 .addField('Removed Retreat Perms!', '```yaml\n' + member.displayName + ' can no longer enter the retreat!\n```');
 
             //Send embed

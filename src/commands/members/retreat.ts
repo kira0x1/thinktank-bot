@@ -27,6 +27,7 @@ export const command: ICommand = {
 
 			const embed = new RichEmbed()
 				.setColor(embedColor)
+				.setAuthor(message.author.username, message.author.avatarURL)
 				.addField('Battle Start!', '```yaml\n' + member.displayName + ' has retreated!\n```');
 
 			message.channel.send(embed);
