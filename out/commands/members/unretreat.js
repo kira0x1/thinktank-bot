@@ -34,50 +34,59 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var chalk_1 = __importDefault(require("chalk"));
 var discord_js_1 = require("discord.js");
-var config_1 = require("../config");
-var style_1 = require("./style");
-function getTarget(message, query) {
-    var member = message.mentions ? message.mentions.members.first() : message.guild.members.get(query);
-    return member;
-}
-exports.getTarget = getTarget;
-function getRole(message, roleName) {
-    var guild = message.client.guilds.get(config_1.guild_id);
-    if (!guild)
-        return;
-    return guild.roles.find(function (role) { return role.name.toLowerCase() === roleName.toLowerCase() || role.id === roleName; });
-}
-exports.getRole = getRole;
-function adminEmbed(message, member, title, reason) {
-    return __awaiter(this, void 0, void 0, function () {
-        var author, embed;
-        return __generator(this, function (_a) {
-            author = message.author;
-            embed = new discord_js_1.RichEmbed()
-                .setColor(style_1.embedColor)
-                .setTitle(title)
-                .setAuthor(author.username, author.avatarURL)
-                .addField("User", member.user.tag + "\n" + "`" + member.id + "`")
-                .addField("Reason", reason || 'none')
-                .setThumbnail(member.user.avatarURL);
-            message.channel.send(embed);
-            return [2 /*return*/];
+var adminUtil_1 = require("../../util/adminUtil");
+var style_1 = require("../../util/style");
+exports.command = {
+    name: 'Un-Retreat',
+    description: 'Removes retreat permissions from user',
+    aliases: ['unrt', 'unr', 'unretreat'],
+    usage: '[@user | id]',
+    perms: ['admin', 'retreat-manager'],
+    args: true,
+    execute: function (message, args) {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, user, member, _a, role, embed;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        query = args.shift();
+                        if (!query)
+                            return [2 /*return*/];
+                        user = message.mentions.users.first();
+                        return [4 /*yield*/, message.guild.fetchMember(user.id)];
+                    case 1:
+                        _a = (_b.sent());
+                        if (_a) return [3 /*break*/, 3];
+                        return [4 /*yield*/, message.guild.fetchMember(query)];
+                    case 2:
+                        _a = (_b.sent());
+                        _b.label = 3;
+                    case 3:
+                        member = _a;
+                        if (member) {
+                            role = adminUtil_1.getRole(message, '648273951180455947');
+                            if (!role)
+                                return [2 /*return*/, console.log(chalk_1.default.bgRed.bold("Couldnt find role retreater"))];
+                            member.removeRole(role);
+                            embed = new discord_js_1.RichEmbed()
+                                .setColor(style_1.embedColor)
+                                .addField('Removed Retreat Perms!', '```yaml\n' + member.displayName + ' can no longer enter the retreat!\n```');
+                            //Send embed
+                            message.channel.send(embed);
+                        }
+                        else {
+                            //Send feedback if the user was not found
+                            adminUtil_1.notFoundEmbed(message, query);
+                        }
+                        return [2 /*return*/];
+                }
+            });
         });
-    });
-}
-exports.adminEmbed = adminEmbed;
-function notFoundEmbed(message, query) {
-    return __awaiter(this, void 0, void 0, function () {
-        var embed;
-        return __generator(this, function (_a) {
-            embed = new discord_js_1.RichEmbed()
-                .setColor(style_1.embedColor)
-                .setTitle("\"" + query + "\" not found");
-            message.channel.send(embed);
-            return [2 /*return*/];
-        });
-    });
-}
-exports.notFoundEmbed = notFoundEmbed;
+    }
+};

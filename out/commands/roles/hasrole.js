@@ -38,12 +38,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var discord_js_1 = require("discord.js");
 var style_1 = require("../../util/style");
 exports.command = {
-    name: "HasRole",
-    description: "Lists user with a specific role",
+    name: 'HasRole',
+    description: 'Lists user with a specific role',
     args: true,
-    usage: "[RoleID]",
-    perms: ["admin", "mod", "demi-mod"],
-    aliases: ["inrole"],
+    usage: '[RoleID]',
+    perms: ['admin', 'mod', 'demi-mod'],
+    aliases: ['inrole'],
     execute: function (message, args) {
         return __awaiter(this, void 0, void 0, function () {
             var query, roleID, role, members, perPage, pages, count, pageAt, firstPage, description, embed, msg, filter, collector, currentPage;
@@ -51,7 +51,7 @@ exports.command = {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        query = args.join(" ");
+                        query = args.join(' ');
                         roleID = args.shift();
                         if (!roleID)
                             return [2 /*return*/, style_1.QuickEmbed(message, "No roleID given")];
@@ -60,7 +60,7 @@ exports.command = {
                             role = message.guild.roles.find(function (r) { return r.name.toLowerCase() === query.toLowerCase(); });
                         }
                         if (!role)
-                            return [2 /*return*/, message.channel.send(">>> **Role not found**\n" + "```yaml\n" + query + "\n```")];
+                            return [2 /*return*/, message.channel.send('>>> **Role not found**\n' + '```yaml\n' + query + '\n```')];
                         members = role.members;
                         perPage = 5;
                         pages = new discord_js_1.Collection();
@@ -82,7 +82,7 @@ exports.command = {
                         firstPage = pages.get(1);
                         if (!firstPage)
                             return [2 /*return*/];
-                        description = "\n";
+                        description = '\n';
                         embed = new discord_js_1.RichEmbed()
                             .setTitle("Members in " + role.name + " (" + role.id + ")")
                             .setFooter("Page 1/" + pageAt + "\nMembers: " + members.size);
@@ -98,32 +98,32 @@ exports.command = {
                             return [2 /*return*/];
                         if (pages.size <= 1)
                             return [2 /*return*/];
-                        return [4 /*yield*/, msg.react("⬅")];
+                        return [4 /*yield*/, msg.react('⬅')];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, msg.react("➡")];
+                        return [4 /*yield*/, msg.react('➡')];
                     case 3:
                         _a.sent();
                         filter = function (reaction, user) {
-                            return (reaction.emoji.name === "➡" || reaction.emoji.name === "⬅") && !user.bot;
+                            return (reaction.emoji.name === '➡' || reaction.emoji.name === '⬅') && !user.bot;
                         };
                         collector = msg.createReactionCollector(filter);
                         currentPage = 1;
-                        collector.on("collect", function (r) { return __awaiter(_this, void 0, void 0, function () {
+                        collector.on('collect', function (r) { return __awaiter(_this, void 0, void 0, function () {
                             var description, embed, page;
                             return __generator(this, function (_a) {
-                                if (r.emoji.name === "➡") {
+                                if (r.emoji.name === '➡') {
                                     currentPage++;
                                     if (currentPage > pages.size)
                                         currentPage = 1;
                                 }
-                                else if (r.emoji.name === "⬅") {
+                                else if (r.emoji.name === '⬅') {
                                     currentPage--;
                                     if (currentPage < 1)
                                         currentPage = pages.size;
                                 }
                                 r.remove(r.users.last());
-                                description = "\n";
+                                description = '\n';
                                 if (!role)
                                     return [2 /*return*/];
                                 embed = new discord_js_1.RichEmbed()
