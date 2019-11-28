@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var style_1 = require("../../util/style");
 exports.command = {
     name: "GiveRole",
-    description: "Give a role to user",
+    description: "Give a role to users with a specific role",
     perms: ["admin"],
     aliases: ["give"],
     usage: "give <roleid> <roleid>",

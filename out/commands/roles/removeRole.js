@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var style_1 = require("../../util/style");
 exports.command = {
     name: "RemoveRole",
-    description: "Give a role to user",
+    description: "Remove a role from users with a specific role",
     perms: ["admin"],
     aliases: ["roleremove"],
     usage: "removerole <roleid> <roleid>",
