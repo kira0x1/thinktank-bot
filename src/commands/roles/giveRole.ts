@@ -3,7 +3,7 @@ import { QuickEmbed } from '../../util/style';
 
 export const command: ICommand = {
     name: "GiveRole",
-    description: "Give a role to user",
+    description: "Give a role to users with a specific role",
     perms: ["admin"],
     aliases: ["give"],
     usage: "give <roleid> <roleid>",

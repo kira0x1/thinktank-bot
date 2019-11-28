@@ -3,7 +3,7 @@ import { QuickEmbed } from '../../util/style';
 
 export const command: ICommand = {
     name: "RemoveRole",
-    description: "Give a role to user",
+    description: "Remove a role from users with a specific role",
     perms: ["admin"],
     aliases: ["roleremove"],
     usage: "removerole <roleid> <roleid>",
