@@ -11,7 +11,7 @@ export function getRole(message: Message, roleName: string) {
     const guild = message.client.guilds.get(guild_id)
     if (!guild) return
 
-    return guild.roles.find(role => role.name === roleName || role.id === roleName)
+    return guild.roles.find(role => role.name.toLowerCase() === roleName.toLowerCase() || role.id === roleName)
 }
 
 export async function adminEmbed(message: Message, member: GuildMember, title: string, reason?: string) {
