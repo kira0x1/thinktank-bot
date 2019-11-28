@@ -39,6 +39,7 @@ var config_1 = require("../config");
 function initVoiceManager(client) {
     return __awaiter(this, void 0, void 0, function () {
         var guild, voice_role;
+        var _this = this;
         return __generator(this, function (_a) {
             guild = client.guilds.get(config_1.guild_id);
             if (!guild)
@@ -46,16 +47,27 @@ function initVoiceManager(client) {
             voice_role = guild.roles.get("644177706367451163");
             if (!voice_role)
                 return [2 /*return*/];
-            guild.members.map(function (m) {
-                if (m.roles.has(voice_role.id)) {
-                    m.removeRole(voice_role);
-                }
-            });
+            guild.members.filter(function (member) { return !member.voiceChannel; })
+                .map(function (member) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    if (member.roles.has(voice_role.id)) {
+                        member.removeRole(voice_role)
+                            .then(function () { })
+                            .catch(function () { });
+                    }
+                    return [2 /*return*/];
+                });
+            }); });
             guild.channels.map(function (channel) {
                 if ((function (channel) { return channel.type === "voice"; })(channel)) {
-                    channel.members.map(function (member) {
-                        member.addRole(voice_role);
-                    });
+                    channel.members.map(function (member) { return __awaiter(_this, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            member.addRole(voice_role)
+                                .then(function () { })
+                                .catch(function () { });
+                            return [2 /*return*/];
+                        });
+                    }); });
                 }
             });
             client.on("voiceStateUpdate", function (oldMember, newMember) {
@@ -67,11 +79,13 @@ function initVoiceManager(client) {
                 var newChannel = newMember.voiceChannel;
                 if (!oldChannel && newChannel) {
                     //User joined a vc
-                    newMember.addRole(voice_role);
+                    newMember.addRole(voice_role).then(function () { })
+                        .catch(function () { });
                 }
                 else if (!newChannel) {
                     //User left vc
-                    newMember.removeRole(voice_role);
+                    newMember.removeRole(voice_role).then(function () { })
+                        .catch(function () { });
                 }
             });
             return [2 /*return*/];
