@@ -23,13 +23,23 @@ export const command: ICommand = {
             const role = getRole(message, '649719140323688508');
             if (!role) return console.log(chalk.bgRed.bold(`Couldnt find role left-only`));
 
-            member.removeRole(role);
+            if (member.roles.get(role.id)) {
+                member.removeRole(role);
 
-            const embed = new RichEmbed()
-                .setColor(embedColor)
-                .addField('Intruder alert!', '```yaml\n' + member.displayName + ' is has defected from the left!\n```');
+                const embed = new RichEmbed()
+                    .setColor(embedColor)
+                    .setAuthor(message.author.username, message.author.tag)
+                    .addField('Intruder alert!', '```yaml\n' + member.displayName + ' is has defected from the left!\n```');
 
-            message.channel.send(embed);
+                message.channel.send(embed);
+            } else {
+                const embed = new RichEmbed()
+                    .setTitle(`${member.displayName} is already not a leftist`)
+                    .setAuthor(message.author.username, message.author.tag)
+                    .setColor(embedColor)
+
+                message.channel.send(embed)
+            }
         } else {
             notFoundEmbed(message, query);
         }

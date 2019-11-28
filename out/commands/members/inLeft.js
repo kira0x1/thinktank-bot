@@ -51,7 +51,7 @@ exports.command = {
     perms: ["admin", "mod"],
     execute: function (message, args) {
         return __awaiter(this, void 0, void 0, function () {
-            var query, user, member, _a, role, embed;
+            var query, user, member, _a, role, embed, embed;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -73,11 +73,21 @@ exports.command = {
                             role = adminUtil_1.getRole(message, '649719140323688508');
                             if (!role)
                                 return [2 /*return*/, console.log(chalk_1.default.bgRed.bold("Couldnt find role left-only"))];
-                            member.addRole(role);
-                            embed = new discord_js_1.RichEmbed()
-                                .setColor(style_1.embedColor)
-                                .addField('Lefty Alert!', '```yaml\n' + member.displayName + ' is now a beta!\n```');
-                            message.channel.send(embed);
+                            if (member.roles.get(role.id)) {
+                                embed = new discord_js_1.RichEmbed()
+                                    .setColor(style_1.embedColor)
+                                    .setAuthor(message.author.username, message.author.tag)
+                                    .setTitle(member.displayName + " is already a leftist");
+                                message.channel.send(embed);
+                            }
+                            else {
+                                member.addRole(role);
+                                embed = new discord_js_1.RichEmbed()
+                                    .setColor(style_1.embedColor)
+                                    .setAuthor(message.author.username, message.author.tag)
+                                    .addField('Lefty Alert!', '```yaml\n' + member.displayName + ' is now a beta!\n```');
+                                message.channel.send(embed);
+                            }
                         }
                         else {
                             adminUtil_1.notFoundEmbed(message, query);

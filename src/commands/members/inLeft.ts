@@ -23,13 +23,23 @@ export const command: ICommand = {
             const role = getRole(message, '649719140323688508');
             if (!role) return console.log(chalk.bgRed.bold(`Couldnt find role left-only`));
 
-            member.addRole(role);
+            if (member.roles.get(role.id)) {
+                const embed = new RichEmbed()
+                    .setColor(embedColor)
+                    .setAuthor(message.author.username, message.author.tag)
+                    .setTitle(`${member.displayName} is already a leftist`)
 
-            const embed = new RichEmbed()
-                .setColor(embedColor)
-                .addField('Lefty Alert!', '```yaml\n' + member.displayName + ' is now a beta!\n```');
+                message.channel.send(embed);
+            } else {
+                member.addRole(role);
 
-            message.channel.send(embed);
+                const embed = new RichEmbed()
+                    .setColor(embedColor)
+                    .setAuthor(message.author.username, message.author.tag)
+                    .addField('Lefty Alert!', '```yaml\n' + member.displayName + ' is now a beta!\n```');
+
+                message.channel.send(embed);
+            }
         } else {
             notFoundEmbed(message, query);
         }
