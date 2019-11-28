@@ -35,8 +35,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var style_1 = require("../../util/style");
 var discord_js_1 = require("discord.js");
+var style_1 = require("../../util/style");
 exports.command = {
     name: "HasRole",
     description: "Lists user with a specific role",
@@ -60,7 +60,7 @@ exports.command = {
                             role = message.guild.roles.find(function (r) { return r.name.toLowerCase() === query.toLowerCase(); });
                         }
                         if (!role)
-                            return [2 /*return*/, message.channel.send(">>> **Role not found**\n" + "```yaml\n" + roleID + "\n```")];
+                            return [2 /*return*/, message.channel.send(">>> **Role not found**\n" + "```yaml\n" + query + "\n```")];
                         members = role.members;
                         perPage = 5;
                         pages = new discord_js_1.Collection();

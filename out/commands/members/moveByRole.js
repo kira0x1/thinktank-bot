@@ -35,26 +35,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var discord_js_1 = require("discord.js");
 var style_1 = require("../../util/style");
-exports.channelAliases = [
-    { name: "Chill Voice", id: "645012348050079755", aliases: ["cv", "chill"] },
-    { name: "Gaming Voice", id: "628111268170956800", aliases: ["gv", "gaming", "game", "gvoice"] },
-    { name: "Serious Voice", id: "628018725450416135", aliases: ["sr", "serious", "sv", "svoice"] },
-    { name: "Watch2Gether", id: "636780340664336388", aliases: ["w", "w2g", "watch"] }
-];
+var moveVC_1 = require("./moveVC");
+var discord_js_1 = require("discord.js");
 exports.command = {
-    name: "Move-Voice",
-    description: "Move users from once voice-channel to another",
-    aliases: ["mv", "movevoice", "voicemove", "vmove"],
+    name: "MoveByRole",
+    description: "Move users from&to a voice-channel by the roles they have",
+    usage: "[role] [voice-channel] [voice-channel]",
+    aliases: ["mr", "moverole"],
     args: true,
-    usage: "[ChannelID | Alias] [ChannelID | Alias]`\n\n" + exports.channelAliases.map(function (ch) { return "**" + ch.name + ":** [`" + ch.aliases.join("`, `") + "`]\n"; }),
-    perms: ["admin"],
+    perms: ["admin", "mod"],
     execute: function (message, args) {
         return __awaiter(this, void 0, void 0, function () {
-            var fromQuery, toQuery, fromChannel, toChannel, channelFound, channelFound, members, embed;
+            var roleQuery, role, fromQuery, toQuery, fromChannel, toChannel, channelFound, channelFound, members, embed;
             var _this = this;
             return __generator(this, function (_a) {
+                roleQuery = args.shift();
+                if (!roleQuery)
+                    return [2 /*return*/];
+                role = message.guild.roles.get(roleQuery);
+                //If input wasnt an id then search for the name
+                if (!role) {
+                    role = message.guild.roles.find(function (r) { return r.name.toLowerCase() === roleQuery.toLowerCase(); });
+                }
+                //Tell user the role they gave wasnt found
+                if (!role)
+                    return [2 /*return*/, message.channel.send(">>> **Role not found**\n" + "```yaml\n" + roleQuery + "\n```")
+                        //GET VC
+                    ];
                 fromQuery = args.shift();
                 toQuery = args.shift();
                 //If not enough inputs return
@@ -66,14 +74,14 @@ exports.command = {
                 toChannel = message.guild.channels.get(toQuery);
                 //If an id was not given then search
                 if (!fromChannel) {
-                    channelFound = exports.channelAliases.find(function (ch) { return ch.aliases.includes(fromQuery.toLowerCase()); });
+                    channelFound = moveVC_1.channelAliases.find(function (ch) { return ch.aliases.includes(fromQuery.toLowerCase()); });
                     if (channelFound) {
                         fromChannel = message.guild.channels.get(channelFound.id);
                     }
                 }
                 //If an id was not given then search
                 if (!toChannel) {
-                    channelFound = exports.channelAliases.find(function (ch) { return ch.aliases.includes(toQuery.toLowerCase()); });
+                    channelFound = moveVC_1.channelAliases.find(function (ch) { return ch.aliases.includes(toQuery.toLowerCase()); });
                     if (channelFound) {
                         toChannel = message.guild.channels.get(channelFound.id);
                     }
@@ -94,7 +102,8 @@ exports.command = {
                     ];
                 members = fromChannel.members;
                 //Move members in the channel
-                members.map(function (member) { return __awaiter(_this, void 0, void 0, function () {
+                members.filter(function (member) { return member.roles.has(role.id); })
+                    .map(function (member) { return __awaiter(_this, void 0, void 0, function () {
                     return __generator(this, function (_a) {
                         if (member.voiceChannel) {
                             member.setVoiceChannel(toChannel);

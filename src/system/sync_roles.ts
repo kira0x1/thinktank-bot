@@ -1,6 +1,6 @@
-import { Client, Emoji, Message, MessageReaction, ReactionEmoji, Role, TextChannel, User, MessageOptions, Guild } from 'discord.js';
-import { guild_id } from '../config';
 import chalk from 'chalk';
+import { Client, Emoji, Guild, Message, MessageReaction, ReactionEmoji, Role, TextChannel, User } from 'discord.js';
+import { guild_id } from '../config';
 
 const customRoles = require('../../customRoles.json')
 

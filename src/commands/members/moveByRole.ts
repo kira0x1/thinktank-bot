@@ -1,23 +1,33 @@
-import { VoiceChannel, RichEmbed } from 'discord.js';
 import { ICommand } from '../../classes/Command';
 import { QuickEmbed, embedColor } from '../../util/style';
-
-export const channelAliases = [
-    { name: "Chill Voice", id: "645012348050079755", aliases: ["cv", "chill"] },
-    { name: "Gaming Voice", id: "628111268170956800", aliases: ["gv", "gaming", "game", "gvoice"] },
-    { name: "Serious Voice", id: "628018725450416135", aliases: ["sr", "serious", "sv", "svoice"] },
-    { name: "Watch2Gether", id: "636780340664336388", aliases: ["w", "w2g", "watch"] }
-]
+import { channelAliases } from './moveVC';
+import { VoiceChannel, RichEmbed } from 'discord.js';
 
 export const command: ICommand = {
-    name: "Move-Voice",
-    description: "Move users from once voice-channel to another",
-    aliases: ["mv", "movevoice", "voicemove", "vmove"],
+    name: "MoveByRole",
+    description: "Move users from&to a voice-channel by the roles they have",
+    usage: `[role] [voice-channel] [voice-channel]`,
+    aliases: ["mr", "moverole"],
     args: true,
-    usage: "[ChannelID | Alias] [ChannelID | Alias]`\n\n" + channelAliases.map(ch => `**${ch.name}` + ":** [`" + ch.aliases.join("`, `") + "`]\n"),
-    perms: ["admin"],
+    perms: ["admin", "mod"],
 
     async execute(message, args) {
+
+        //GET ROLE
+        const roleQuery = args.shift()
+        if (!roleQuery) return
+        let role = message.guild.roles.get(roleQuery)
+
+        //If input wasnt an id then search for the name
+        if (!role) {
+            role = message.guild.roles.find(r => r.name.toLowerCase() === roleQuery.toLowerCase())
+        }
+
+        //Tell user the role they gave wasnt found
+        if (!role) return message.channel.send(">>> **Role not found**\n" + "```yaml\n" + roleQuery + "\n```")
+
+
+        //GET VC
         const fromQuery = args.shift()
         const toQuery = args.shift()
 
@@ -27,6 +37,7 @@ export const command: ICommand = {
         //Get channels by id
         let fromChannel = message.guild.channels.get(fromQuery)
         let toChannel = message.guild.channels.get(toQuery)
+
 
         //If an id was not given then search
         if (!fromChannel) {
@@ -48,6 +59,7 @@ export const command: ICommand = {
         if (!fromChannel) return QuickEmbed(message, `From-Channel [${fromQuery}] not found`)
         if (!toChannel) return QuickEmbed(message, `To-Channel [${toQuery}] not found`)
 
+
         //Make sure the channels are voicechannels
         if (!(fromChannel instanceof VoiceChannel)) return QuickEmbed(message, `${fromChannel.name} is not a voice-channel`)
         if (!(toChannel instanceof VoiceChannel)) return QuickEmbed(message, `${toChannel.name} is not a voice-channel`)
@@ -57,11 +69,12 @@ export const command: ICommand = {
         const members = fromChannel.members
 
         //Move members in the channel
-        members.map(async member => {
-            if (member.voiceChannel) {
-                member.setVoiceChannel(toChannel)
-            }
-        })
+        members.filter(member => member.roles.has(role.id))
+            .map(async member => {
+                if (member.voiceChannel) {
+                    member.setVoiceChannel(toChannel)
+                }
+            })
 
         //Check if any members have not been moved, and then move them
         members.filter(member => member.voiceChannel === fromChannel)

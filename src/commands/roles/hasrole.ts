@@ -1,6 +1,6 @@
+import { Collection, GuildMember, Message, MessageReaction, RichEmbed, User } from 'discord.js';
 import { ICommand } from '../../classes/Command';
-import { QuickEmbed, embedColor } from '../../util/style';
-import { Collection, GuildMember, RichEmbed, Message, MessageReaction, User } from 'discord.js';
+import { QuickEmbed } from '../../util/style';
 
 export const command: ICommand = {
     name: "HasRole",
@@ -22,7 +22,7 @@ export const command: ICommand = {
             role = message.guild.roles.find(r => r.name.toLowerCase() === query.toLowerCase())
         }
 
-        if (!role) return message.channel.send(">>> **Role not found**\n" + "```yaml\n" + roleID + "\n```")
+        if (!role) return message.channel.send(">>> **Role not found**\n" + "```yaml\n" + query + "\n```")
 
         const members = role.members
         const perPage = 5
