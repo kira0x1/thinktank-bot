@@ -15,9 +15,12 @@ export function getRole(message: Message, roleName: string) {
 }
 
 export async function adminEmbed(message: Message, member: GuildMember, title: string, reason?: string) {
+    const author = message.author
+
     const embed = new RichEmbed()
         .setColor(embedColor)
         .setTitle(title)
+        .setAuthor(author.username, author.avatarURL)
         .addField(`User`, member.user.tag + "\n" + "`" + member.id + "`")
         .addField(`Reason`, reason || 'none')
         .setThumbnail(member.user.avatarURL);
