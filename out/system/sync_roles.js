@@ -39,6 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var chalk_1 = __importDefault(require("chalk"));
+var discord_js_1 = require("discord.js");
 var config_1 = require("../config");
 var customRoles = require('../../customRoles.json');
 function syncRoles(client) {
@@ -52,7 +53,10 @@ function syncRoles(client) {
             if (!channel)
                 return [2 /*return*/];
             if (!(function (channel) { return channel.type === "text"; })(channel))
-                return [2 /*return*/, console.log("Couldnt find channel")];
+                return [2 /*return*/, console.log("Couldnt find channel")
+                    // EditRoles(channel)
+                ];
+            // EditRoles(channel)
             channel.fetchMessages({ limit: 100 }).then(function (messages) {
                 messages.map(function (msg) {
                     if (msg.reactions.size > 0) {
@@ -69,50 +73,81 @@ function syncRoles(client) {
     });
 }
 exports.syncRoles = syncRoles;
-function OnReactionRemove(reaction, user) {
-    if (reaction.message.channel.id !== "628565019508080660")
-        return;
-    var guild = reaction.message.guild;
-    var channel = guild.channels.get("628565019508080660");
-    if (!channel)
-        return;
-    if (!(function (channel) { return channel.type === "text"; })(channel))
-        return console.log("Couldnt find channel");
-    if (customRoles.sections.map(function (section) { return section.roles.find(function (role) { return role.emoji === reaction.emoji.toString(); }); }) === false)
-        return;
-    if (user.bot)
-        return;
-    var member = guild.members.get(user.id);
-    var section = customRoles.sections.find(function (sec) { return sec.roles.find(function (rl) { return rl.emoji === reaction.emoji.toString(); }); });
-    if (!section)
-        return;
-    var crole = section.roles.find(function (rl) { return rl.emoji === reaction.emoji.toString(); });
-    var role = guild.roles.find(function (rl) { return rl.id === crole.id; });
-    if (!member || !section || !role)
-        return console.log("er");
-    var rolesFound = [];
-    member.roles.map(function (role) {
-        if (section.roles.find(function (r) { return r.id === role.id; })) {
-            rolesFound.push(role);
-        }
-    });
-    if (member.roles.has(role.id)) {
-        var roles = [role];
-        if (rolesFound.length === 1) {
-            var otherSections = customRoles.sections.filter(function (sec) { return sec.sectionId === section.sectionId; }).find(function (sec) { return sec.roles.find(function (r) { return member.roles.has(r.roleId); }); });
-            if (!otherSections) {
-                var sectionRole = member.guild.roles.get(section.sectionId);
-                if (sectionRole) {
-                    roles.push(sectionRole);
-                }
+function EditRoles(channel) {
+    return __awaiter(this, void 0, void 0, function () {
+        var msg, embed, richEmbed, section, newMsg;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, channel.fetchMessage("644271191418470434")];
+                case 1:
+                    msg = _a.sent();
+                    embed = msg.embeds[0];
+                    richEmbed = new discord_js_1.RichEmbed();
+                    richEmbed.title = embed.title;
+                    section = customRoles.sections.find(function (sc) { return sc.title === "Games"; });
+                    section.roles.map(function (r, index) {
+                        console.log(index + ": " + r.name);
+                        richEmbed.addField("\u200B", r.name);
+                    });
+                    return [4 /*yield*/, msg.edit(richEmbed)];
+                case 2:
+                    newMsg = _a.sent();
+                    newMsg.react("🎲");
+                    return [2 /*return*/];
             }
-        }
-        member.removeRoles(roles).then(function (user) {
-            // console.log(chalk.bgMagenta.bold(`Removed role(s) from ${user.displayName}`))
-        }).catch(function (err) {
-            console.log(chalk_1.default.bgRed.bold(err));
         });
-    }
+    });
+}
+function OnReactionRemove(reaction, user) {
+    return __awaiter(this, void 0, void 0, function () {
+        var guild, channel, member, section, crole, role, rolesFound, roles, otherSections, sectionRole;
+        return __generator(this, function (_a) {
+            if (reaction.message.channel.id !== "628565019508080660")
+                return [2 /*return*/];
+            guild = reaction.message.guild;
+            channel = guild.channels.get("628565019508080660");
+            if (!channel)
+                return [2 /*return*/];
+            if (!(function (channel) { return channel.type === "text"; })(channel))
+                return [2 /*return*/, console.log("Couldnt find channel")];
+            if (customRoles.sections.map(function (section) { return section.roles.find(function (role) { return role.emoji === reaction.emoji.toString(); }); }) === false)
+                return [2 /*return*/];
+            if (user.bot)
+                return [2 /*return*/];
+            member = guild.members.get(user.id);
+            section = customRoles.sections.find(function (sec) { return sec.roles.find(function (rl) { return rl.emoji === reaction.emoji.toString(); }); });
+            if (!section)
+                return [2 /*return*/];
+            crole = section.roles.find(function (rl) { return rl.emoji === reaction.emoji.toString(); });
+            role = guild.roles.find(function (rl) { return rl.id === crole.id; });
+            if (!member || !section || !role)
+                return [2 /*return*/, console.log("er")];
+            rolesFound = [];
+            member.roles.map(function (role) {
+                if (section.roles.find(function (r) { return r.id === role.id; })) {
+                    rolesFound.push(role);
+                }
+            });
+            if (member.roles.has(role.id)) {
+                roles = [role];
+                if (rolesFound.length === 1) {
+                    otherSections = customRoles.sections.filter(function (sec) { return sec.sectionId === section.sectionId; }).find(function (sec) { return sec.roles.find(function (r) { return member.roles.has(r.roleId); }); });
+                    if (!otherSections) {
+                        sectionRole = member.guild.roles.get(section.sectionId);
+                        if (sectionRole) {
+                            roles.push(sectionRole);
+                        }
+                    }
+                }
+                member.removeRoles(roles).then(function (user) {
+                    // console.log(chalk.bgMagenta.bold(`Removed role(s) from ${user.displayName}`))
+                }).catch(function (err) {
+                    console.log(chalk_1.default.bgRed.bold(err));
+                });
+            }
+            return [2 /*return*/];
+        });
+    });
 }
 exports.OnReactionRemove = OnReactionRemove;
 function syncRoleSections(guild) {

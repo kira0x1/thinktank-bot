@@ -60,14 +60,16 @@ function initVoiceManager(client) {
             }); });
             guild.channels.map(function (channel) {
                 if ((function (channel) { return channel.type === "voice"; })(channel)) {
-                    channel.members.map(function (member) { return __awaiter(_this, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            member.addRole(voice_role)
-                                .then(function () { })
-                                .catch(function () { });
-                            return [2 /*return*/];
-                        });
-                    }); });
+                    if (channel.id !== "643846334885003264" && channel.id !== "649484214466641920") {
+                        channel.members.map(function (member) { return __awaiter(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                member.addRole(voice_role)
+                                    .then(function () { })
+                                    .catch(function () { });
+                                return [2 /*return*/];
+                            });
+                        }); });
+                    }
                 }
             });
             client.on("voiceStateUpdate", function (oldMember, newMember) {
@@ -78,14 +80,18 @@ function initVoiceManager(client) {
                 var oldChannel = oldMember.voiceChannel;
                 var newChannel = newMember.voiceChannel;
                 if (!oldChannel && newChannel) {
-                    //User joined a vc
-                    newMember.addRole(voice_role).then(function () { })
-                        .catch(function () { });
+                    if (newChannel.id !== "643846334885003264" && newChannel.id !== "649484214466641920") {
+                        //User joined a vc
+                        newMember.addRole(voice_role).then(function () { })
+                            .catch(function () { });
+                    }
                 }
                 else if (!newChannel) {
                     //User left vc
-                    newMember.removeRole(voice_role).then(function () { })
-                        .catch(function () { });
+                    if (newMember.roles.has(voice_role.id)) {
+                        newMember.removeRole(voice_role).then(function () { })
+                            .catch(function () { });
+                    }
                 }
             });
             return [2 /*return*/];

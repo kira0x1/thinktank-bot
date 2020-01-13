@@ -53,14 +53,13 @@ export const command: ICommand = {
 		let description = '\n';
 
 		const embed = new RichEmbed()
-			.setTitle(`Members in ${role.name} (${role.id})`)
+			.setTitle(`Members with role ${role.name} (${role.id})`)
 			.setFooter(`Page 1/${pageAt}\nMembers: ${members.size}`);
 
 		firstPage.map(member => {
 			description += `**${member.user.tag}** (${member.id})\n\n`;
 		});
 
-		// embed.setDescription(description)
 		embed.addField(`\u200b`, description);
 
 		const msg = await message.channel.send(embed);
@@ -94,7 +93,7 @@ export const command: ICommand = {
 			if (!role) return;
 
 			const embed = new RichEmbed()
-				.setTitle(`Members in ${role.name} (${role.id})`)
+				.setTitle(`Members with role ${role.name} (${role.id})`)
 				.setFooter(`Page ${currentPage}/${pageAt}\nMembers: ${members.size}`);
 
 			const page = pages.get(currentPage);
@@ -105,7 +104,6 @@ export const command: ICommand = {
 			});
 
 			embed.addField(`\u200b`, description);
-
 			msg.edit(embed);
 		});
 	}

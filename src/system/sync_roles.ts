@@ -12,6 +12,8 @@ export async function syncRoles(client: Client) {
     if (!channel) return
     if (!((channel): channel is TextChannel => channel.type === "text")(channel)) return console.log("Couldnt find channel")
 
+    // EditRoles(channel)
+
     channel.fetchMessages({ limit: 100 }).then(messages => {
         messages.map(msg => {
             if (msg.reactions.size > 0) {
@@ -25,7 +27,28 @@ export async function syncRoles(client: Client) {
     })
 }
 
-export function OnReactionRemove(reaction: MessageReaction, user: User) {
+async function EditRoles(channel: TextChannel) {
+    const msg = await channel.fetchMessage("644271191418470434")
+
+    const embed = msg.embeds[0];
+
+    const richEmbed = new RichEmbed()
+
+    richEmbed.title = embed.title;
+
+    const section = customRoles.sections.find(sc => sc.title === "Games")
+
+    section.roles.map((r, index) => {
+        console.log(`${index}: ${r.name}`)
+        richEmbed.addField(`\u200b`, r.name)
+    })
+
+    const newMsg = await msg.edit(richEmbed);
+
+    newMsg.react("🎲")
+}
+
+export async function OnReactionRemove(reaction: MessageReaction, user: User) {
     if (reaction.message.channel.id !== "628565019508080660") return
 
     const guild = reaction.message.guild

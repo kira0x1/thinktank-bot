@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var chalk_1 = __importDefault(require("chalk"));
 var discord_js_1 = require("discord.js");
@@ -54,6 +55,7 @@ var bump_reminder_1 = require("./system/bump_reminder");
 var client = new discord_js_1.Client({
     disabledEvents: ["TYPING_START"]
 });
+var IS_TESTING = false;
 function init() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -68,13 +70,15 @@ function init() {
     });
 }
 client.on("ready", function () {
-    //Get persistant roles
-    dbRole_1.initRoles();
-    //Sets up voice role when users are in voice
-    voice_manager_1.initVoiceManager(client);
-    dbBanned_1.initBanned();
-    //Sync roles
-    sync_roles_1.syncRoles(client);
+    if (!IS_TESTING) {
+        //Get persistant roles
+        dbRole_1.initRoles();
+        //Sets up voice role when users are in voice
+        voice_manager_1.initVoiceManager(client);
+        dbBanned_1.initBanned();
+        //Sync roles
+        sync_roles_1.syncRoles(client);
+    }
     //Setup command files
     commandUtil_1.InitCommands();
     console.log(chalk_1.default.bgCyan.bold(client.user.username + " online!"));
@@ -99,21 +103,27 @@ client.on('raw', function (packet) {
     }
 });
 function HandleRawEvent(message, packet) {
-    // Emojis can have identifiers of name:id format, so we have to account for that case as well
-    var emoji = packet.d.emoji.id ? packet.d.emoji.name + ":" + packet.d.emoji.id : packet.d.emoji.name;
-    // This gives us the reaction we need to emit the event properly, in top of the message object
-    var reaction = message.reactions.get(emoji);
-    var user = client.users.get(packet.d.user_id);
-    if (!user)
-        return console.log("user not found in raw event");
-    // Adds the currently reacting user to the reaction's users collection.
-    if (reaction)
-        reaction.users.set(packet.d.user_id, user);
-    if (!reaction)
-        return;
-    if (packet.t === 'MESSAGE_REACTION_REMOVE') {
-        sync_roles_1.OnReactionRemove(reaction, user);
-    }
+    return __awaiter(this, void 0, void 0, function () {
+        var emoji, reaction, user;
+        return __generator(this, function (_a) {
+            emoji = packet.d.emoji.id ? packet.d.emoji.name + ":" + packet.d.emoji.id : packet.d.emoji.name;
+            reaction = message.reactions.get(emoji);
+            user = client.users.get(packet.d.user_id);
+            if (!user)
+                return [2 /*return*/, console.log("user not found in raw event")
+                    // Adds the currently reacting user to the reaction's users collection.
+                ];
+            // Adds the currently reacting user to the reaction's users collection.
+            if (reaction)
+                reaction.users.set(packet.d.user_id, user);
+            if (!reaction)
+                return [2 /*return*/];
+            if (packet.t === 'MESSAGE_REACTION_REMOVE') {
+                sync_roles_1.OnReactionRemove(reaction, user);
+            }
+            return [2 /*return*/];
+        });
+    });
 }
 client.on("guildMemberAdd", function (member) {
     if (member.guild.id !== config_1.guild_id)
@@ -190,54 +200,60 @@ client.on("guildMemberRemove", function (member) {
         dbUser_1.CreateUser(iuser);
     });
 });
-client.on("message", function (message) {
-    if (message.author.bot || !message.content.startsWith(config_1.prefix)) {
-        bump_reminder_1.OnMessageBot(message);
-        return;
-    }
-    if (config_1.perms.find(function (p) { return message.member.roles.has(p.roleId); }) === undefined) {
-        return;
-    }
-    var args = message.content.slice(config_1.prefix.length).split(/ +/);
-    var commandName = args.shift();
-    if (!commandName)
-        return;
-    if (commandName.startsWith(config_1.prefix))
-        return;
-    commandName = commandName.toLowerCase();
-    var command = commandUtil_1.FindCommand(commandName);
-    if (!command) {
-        var grp = commandUtil_1.FindCommandGroup(commandName);
-        if (grp) {
-            commandName = args.shift();
-            if (!commandName)
-                return;
-            command = grp.find(function (cmd) { return cmd.name.toLowerCase() === commandName || cmd.aliases && cmd.aliases.find(function (al) { return al === commandName; }); });
+client.on("message", function (message) { return __awaiter(_this, void 0, void 0, function () {
+    var args, commandName, command, grp, usageString, embed;
+    return __generator(this, function (_a) {
+        if (message.author.bot || !message.content.startsWith(config_1.prefix)) {
+            bump_reminder_1.OnMessageBot(message);
+            return [2 /*return*/];
         }
-    }
-    if (!command)
-        return message.author.send("command " + style_1.wrap(commandName || "") + " not found");
-    //Exit out if command is disabled
-    if (command.disabled)
-        return;
-    if (!commandUtil_1.HasPerms(message.member, command.name))
-        return;
-    if (command.args && args.length === 0) {
-        var usageString = "Arguments required";
-        var embed = new discord_js_1.RichEmbed();
-        embed.setColor(style_1.embedColor);
-        if (command.usage) {
-            usageString = command.name + " ";
-            usageString += style_1.wrap(command.usage, "`");
+        if (config_1.perms.find(function (p) { return message.member.roles.has(p.roleId); }) === undefined && message.guild.id === config_1.guild_id) {
+            return [2 /*return*/];
         }
-        embed.addField("Arguments Required", usageString);
-        return message.channel.send(embed);
-    }
-    try {
-        command.execute(message, args);
-    }
-    catch (err) {
-        console.error(err);
-    }
-});
+        args = message.content.slice(config_1.prefix.length).split(/ +/);
+        commandName = args.shift();
+        if (!commandName)
+            return [2 /*return*/];
+        if (commandName.startsWith(config_1.prefix))
+            return [2 /*return*/];
+        commandName = commandName.toLowerCase();
+        command = commandUtil_1.FindCommand(commandName);
+        if (!command) {
+            grp = commandUtil_1.FindCommandGroup(commandName);
+            if (grp) {
+                commandName = args.shift();
+                if (!commandName)
+                    return [2 /*return*/];
+                command = grp.find(function (cmd) { return cmd.name.toLowerCase() === commandName || cmd.aliases && cmd.aliases.find(function (al) { return al === commandName; }); });
+            }
+        }
+        if (!command)
+            return [2 /*return*/, message.author.send("command " + style_1.wrap(commandName || "") + " not found")
+                //Exit out if command is disabled
+            ];
+        //Exit out if command is disabled
+        if (command.disabled)
+            return [2 /*return*/];
+        if (!commandUtil_1.HasPerms(message.member, command.name))
+            return [2 /*return*/];
+        if (command.args && args.length === 0) {
+            usageString = "Arguments required";
+            embed = new discord_js_1.RichEmbed();
+            embed.setColor(style_1.embedColor);
+            if (command.usage) {
+                usageString = command.name + " ";
+                usageString += style_1.wrap(command.usage, "`");
+            }
+            embed.addField("Arguments Required", usageString);
+            return [2 /*return*/, message.channel.send(embed)];
+        }
+        try {
+            command.execute(message, args);
+        }
+        catch (err) {
+            console.error(err);
+        }
+        return [2 /*return*/];
+    });
+}); });
 init();

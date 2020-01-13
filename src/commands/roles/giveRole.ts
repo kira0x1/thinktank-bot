@@ -1,5 +1,8 @@
 import { ICommand } from '../../classes/Command';
 import { QuickEmbed } from '../../util/style';
+import chalk from 'chalk';
+import { RichEmbed, Message } from 'discord.js';
+import { loadingImage } from '../../util/assetUtil';
 
 export const command: ICommand = {
 	name: 'GiveRole',
@@ -9,7 +12,7 @@ export const command: ICommand = {
 	usage: 'give <roleid> <roleid>',
 	args: true,
 
-	execute(message, args) {
+	async execute(message, args) {
 		const selectedID = args.shift();
 		const giveID = args.shift();
 
@@ -33,8 +36,29 @@ export const command: ICommand = {
 		}
 
 		//Add role to members with the selected role
+		const promises = []
 		selectedRole.members.map(member => {
-			member.addRole(giveRole);
+			promises.push(member.addRole(giveRole))
 		});
+
+		const embed = new RichEmbed()
+			.setTitle(`Adding Roles Please Wait`)
+			.setAuthor(`Loading...`, `https://cdn.discordapp.com/emojis/652448408652611654.gif?v=1`)
+
+		const msg = await message.channel.send(embed)
+
+
+		Promise.all(promises)
+			.then(response => {
+				const embed = new RichEmbed()
+				embed.setTitle(`Added Role "${giveRole.name}" to Members with role "${selectedRole.name}"`)
+				embed.setDescription(`Added role to ${selectedRole.members.size} members`)
+				if (msg instanceof Message) {
+					msg.edit(embed)
+				}
+			})
+			.catch(err => {
+				console.error(chalk.bgRed(err))
+			})
 	}
 };

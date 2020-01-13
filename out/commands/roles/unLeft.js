@@ -51,24 +51,24 @@ exports.command = {
     perms: ["admin", "mod"],
     execute: function (message, args) {
         return __awaiter(this, void 0, void 0, function () {
-            var query, user, member, _a, role, embed, embed;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var query, user, member, role, embed, embed;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         query = args.shift();
                         if (!query)
                             return [2 /*return*/];
                         user = message.mentions.users.first();
+                        if (!user) return [3 /*break*/, 2];
                         return [4 /*yield*/, message.guild.fetchMember(user.id)];
                     case 1:
-                        _a = (_b.sent());
-                        if (_a) return [3 /*break*/, 3];
-                        return [4 /*yield*/, message.guild.fetchMember(query)];
-                    case 2:
-                        _a = (_b.sent());
-                        _b.label = 3;
+                        member = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, message.guild.fetchMember(query)];
                     case 3:
-                        member = _a;
+                        member = _a.sent();
+                        _a.label = 4;
+                    case 4:
                         if (member) {
                             role = adminUtil_1.getRole(message, '649719140323688508');
                             if (!role)

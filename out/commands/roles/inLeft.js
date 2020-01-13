@@ -38,46 +38,56 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var adminUtil_1 = require("../../util/adminUtil");
 var chalk_1 = __importDefault(require("chalk"));
 var discord_js_1 = require("discord.js");
-var adminUtil_1 = require("../../util/adminUtil");
 var style_1 = require("../../util/style");
 exports.command = {
-    name: "Retreat",
-    description: "Send a user to the retreat",
-    aliases: ["rt"],
+    name: "InLeft",
+    description: "Give a user the ability to view left-channels",
     usage: "[@user | id]",
-    perms: ["admin", "retreat-manager"],
+    aliases: ["il"],
     args: true,
+    perms: ["admin", "mod"],
     execute: function (message, args) {
         return __awaiter(this, void 0, void 0, function () {
-            var query, user, member, _a, role, embed;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var query, user, member, role, embed, embed;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         query = args.shift();
                         if (!query)
                             return [2 /*return*/];
                         user = message.mentions.users.first();
+                        if (!user) return [3 /*break*/, 2];
                         return [4 /*yield*/, message.guild.fetchMember(user.id)];
                     case 1:
-                        _a = (_b.sent());
-                        if (_a) return [3 /*break*/, 3];
-                        return [4 /*yield*/, message.guild.fetchMember(query)];
-                    case 2:
-                        _a = (_b.sent());
-                        _b.label = 3;
+                        member = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, message.guild.fetchMember(query)];
                     case 3:
-                        member = _a;
+                        member = _a.sent();
+                        _a.label = 4;
+                    case 4:
                         if (member) {
-                            role = adminUtil_1.getRole(message, "648273951180455947");
+                            role = adminUtil_1.getRole(message, '649719140323688508');
                             if (!role)
-                                return [2 /*return*/, console.log(chalk_1.default.bgRed.bold("Couldnt find role retreater"))];
-                            member.addRole(role);
-                            embed = new discord_js_1.RichEmbed()
-                                .setColor(style_1.embedColor)
-                                .addField("Battle Start!", "```yaml\n" + member.displayName + " has retreated!\n```");
-                            message.channel.send(embed);
+                                return [2 /*return*/, console.log(chalk_1.default.bgRed.bold("Couldnt find role left-only"))];
+                            if (member.roles.get(role.id)) {
+                                embed = new discord_js_1.RichEmbed()
+                                    .setColor(style_1.embedColor)
+                                    .setAuthor(message.author.username, message.author.avatarURL)
+                                    .setTitle(member.displayName + " is already a leftist");
+                                message.channel.send(embed);
+                            }
+                            else {
+                                member.addRole(role);
+                                embed = new discord_js_1.RichEmbed()
+                                    .setColor(style_1.embedColor)
+                                    .setAuthor(message.author.username, message.author.avatarURL)
+                                    .addField('Lefty Alert!', '```yaml\n' + member.displayName + ' is now a beta!\n```');
+                                message.channel.send(embed);
+                            }
                         }
                         else {
                             adminUtil_1.notFoundEmbed(message, query);

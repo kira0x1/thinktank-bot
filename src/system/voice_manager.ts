@@ -18,14 +18,15 @@ export async function initVoiceManager(client: Client) {
                     .catch(() => { })
             }
         })
-
     guild.channels.map(channel => {
         if (((channel): channel is VoiceChannel => channel.type === "voice")(channel)) {
-            channel.members.map(async member => {
-                member.addRole(voice_role)
-                    .then(() => { })
-                    .catch(() => { })
-            })
+            if (channel.id !== "643846334885003264" && channel.id !== "649484214466641920") {
+                channel.members.map(async member => {
+                    member.addRole(voice_role)
+                        .then(() => { })
+                        .catch(() => { })
+                })
+            }
         }
     })
 
@@ -40,15 +41,18 @@ export async function initVoiceManager(client: Client) {
         const oldChannel = oldMember.voiceChannel
         const newChannel = newMember.voiceChannel
 
-
         if (!oldChannel && newChannel) {
-            //User joined a vc
-            newMember.addRole(voice_role).then(() => { })
-                .catch(() => { })
+            if (newChannel.id !== "643846334885003264" && newChannel.id !== "649484214466641920") {
+                //User joined a vc
+                newMember.addRole(voice_role).then(() => { })
+                    .catch(() => { })
+            }
         } else if (!newChannel) {
             //User left vc
-            newMember.removeRole(voice_role).then(() => { })
-                .catch(() => { })
+            if (newMember.roles.has(voice_role.id)) {
+                newMember.removeRole(voice_role).then(() => { })
+                    .catch(() => { })
+            }
         }
     })
 }

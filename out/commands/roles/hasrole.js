@@ -84,12 +84,11 @@ exports.command = {
                             return [2 /*return*/];
                         description = '\n';
                         embed = new discord_js_1.RichEmbed()
-                            .setTitle("Members in " + role.name + " (" + role.id + ")")
+                            .setTitle("Members with role " + role.name + " (" + role.id + ")")
                             .setFooter("Page 1/" + pageAt + "\nMembers: " + members.size);
                         firstPage.map(function (member) {
                             description += "**" + member.user.tag + "** (" + member.id + ")\n\n";
                         });
-                        // embed.setDescription(description)
                         embed.addField("\u200B", description);
                         return [4 /*yield*/, message.channel.send(embed)];
                     case 1:
@@ -127,7 +126,7 @@ exports.command = {
                                 if (!role)
                                     return [2 /*return*/];
                                 embed = new discord_js_1.RichEmbed()
-                                    .setTitle("Members in " + role.name + " (" + role.id + ")")
+                                    .setTitle("Members with role " + role.name + " (" + role.id + ")")
                                     .setFooter("Page " + currentPage + "/" + pageAt + "\nMembers: " + members.size);
                                 page = pages.get(currentPage);
                                 if (!page)

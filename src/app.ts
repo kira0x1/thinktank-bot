@@ -16,27 +16,29 @@ const client = new Client({
     disabledEvents: ["TYPING_START"]
 })
 
+const IS_TESTING = false
+
 async function init() {
     await dbInit()
     client.login(token);
 }
 
 client.on("ready", () => {
+    if (!IS_TESTING) {
+        //Get persistant roles
+        initRoles()
 
-    //Get persistant roles
-    initRoles()
+        //Sets up voice role when users are in voice
+        initVoiceManager(client)
 
-    //Sets up voice role when users are in voice
-    initVoiceManager(client)
+        initBanned()
 
-    initBanned()
-
-    //Sync roles
-    syncRoles(client)
+        //Sync roles
+        syncRoles(client)
+    }
 
     //Setup command files
     InitCommands();
-
     console.log(chalk.bgCyan.bold(`${client.user.username} online!`))
 })
 
@@ -60,7 +62,7 @@ client.on('raw', packet => {
     }
 })
 
-function HandleRawEvent(message: Message, packet: any) {
+async function HandleRawEvent(message: Message, packet: any) {
     // Emojis can have identifiers of name:id format, so we have to account for that case as well
     const emoji = packet.d.emoji.id ? `${packet.d.emoji.name}:${packet.d.emoji.id}` : packet.d.emoji.name;
 
@@ -78,7 +80,6 @@ function HandleRawEvent(message: Message, packet: any) {
         OnReactionRemove(reaction, user)
     }
 }
-
 
 client.on("guildMemberAdd", member => {
     if (member.guild.id !== guild_id) return
@@ -167,13 +168,13 @@ client.on("guildMemberRemove", member => {
     })
 })
 
-client.on("message", message => {
+client.on("message", async  message => {
     if (message.author.bot || !message.content.startsWith(prefix)) {
         OnMessageBot(message)
         return;
     }
 
-    if (perms.find(p => message.member.roles.has(p.roleId)) === undefined) {
+    if (perms.find(p => message.member.roles.has(p.roleId)) === undefined && message.guild.id === guild_id) {
         return
     }
 
